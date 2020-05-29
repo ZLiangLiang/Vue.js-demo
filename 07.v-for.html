@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--v-for循环数组值-->
+        <p v-for="(item,i) in list">索引值:{{i}}===数据值:{{item}}</p>
+        <!--v-for循环复杂数组-->
+        <p v-for="(user,i) in list2">{{user.id}}==={{user.name}}</p>
+        <!--v-for循环对象-->
+        <p v-for="(val,key,i) in user">{{val}}=={{key}}=={{i}}</p>
+        <!--v-for迭代数字-->
+        <p v-for="count in 10">{{count}}</p>
+
+        <!--v-for中的key-->
+        <label>ID:</label>
+        <input type="text" v-model="id">
+        <label>Name:</label>
+        <input type="text" v-model="name">
+        <input type="button"  value="添加" @click="add">
+        <!--v-for循环时，key属性只能使用 number获取String-->
+        <!--key在使用时，必须使用v-bind绑定形式，指定唯一的key的值-->
+        <p v-for="item in list3" :key="item.id">
+            <input type="checkbox" >{{item.id}}=={{item.name}}
+
+        </p>
+
+    </div>
+    
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                list:[1,2,3,4,5,6],
+                list2:[
+                    {id: 1,name: 'bob'},
+                    {id: 2,name: 'ana'},
+                    {id: 3,name: 'ash'}
+
+                ],
+                user:{
+                    id:1,
+                    name:'kwin',
+                    gender:'man'
+
+                },
+                list3:[
+                    {id:1, name:'Ana'},
+                    {id:2, name:'Bob'},
+                    {id:3, name:'Ash'}
+            ]
+                
+            },
+            methods:{
+                add(){
+                    this.list3.unshift({id:this.id,name:this.name})
+                }
+            }
+        })
+    </script>
+</body>
+</html>
