@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+    <h1>简易计算器</h1>
+    <div id="app">
+        <input type="text" v-model="msg1">
+        <select v-model="opt">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+
+        <input type="text" v-model="msg2">
+        <input type="button" value="=" @click="calc">
+        <input type="text" v-model="msg3">
+    </div>
+
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                msg1:0,
+                msg2:0,
+                msg3:0,
+                opt:'+'
+
+            },
+            methods:{
+                calc(){
+                    var msg='parseInt(this.msg1)'+this.opt+'parseInt(this.msg2)';
+                    this.msg3=eval(msg);
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>

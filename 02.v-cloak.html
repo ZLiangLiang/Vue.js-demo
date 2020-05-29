@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style> -->
+</head>
+<body>
+    <script src="./lib/vue.js"></script>
+    
+    <div id="app">
+        <p v-cloak>++++{{msg}}-----</p> <!--使用 v-cloak 可以解决插值表达式的闪烁问题-->
+
+        <h4 v-text="msg">=====</h4>   <!--没有闪烁问题 会覆盖元素中原本的问题-->
+
+        <div v-html="msg2"></div> <!--覆盖 转义html-->
+
+        <input type="button" value="按钮" v-bind:title="mytitle+'123'"> <!--v-bind vue提供用于绑定属性的指令-->
+
+        <input type="button" value="按钮" :title="mytitle+'123'" > <!--可以简写为:-->
+
+        <input type="button" value="按钮" :title="mytitle+'123'" v-on:click="show"> <!--v-on 提供事件绑定绑定 缩写为 @-->
+
+    </div>
+    <!-- 创建一个vue实例-->
+    <script>
+        var vm = new Vue({
+            el:'#app',//控制的区域
+            data:{ //el要用到的数组
+                msg:'welcome', //通过vue提供的指令渲染，不需要操作DOM
+                msg2:'<h1>一个H1</h1>',
+                mytitle:'自定义'
+            },
+            methods:{//定义方法
+                show:function(){
+                    alert("hello")
+                }
+
+            }
+        })
+    </script>
+</body>
+</html>
