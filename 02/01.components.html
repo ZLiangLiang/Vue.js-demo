@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button-conter></button-conter>
+        <button-conter></button-conter> <!--可重用，各个组件独立-->
+        <hello-world></hello-world>
+    </div>
+
+
+    <script>
+        //组件注册 全局组件
+        Vue.component('button-conter',{  //命名：短横线式或者驼峰式：ButtonConter,但只能在字符串模板中使用，标签内需要短横线
+            data: function(){  //data必须是函数
+                return {
+                    count: 0
+                }
+            },
+           // template: '<button @click="count++">点击了{{count}}次</button>' //编译模板，必须是单个根元素，
+           //可如果模板比较复杂，可以是模板字符串
+           template: ` 
+            <div>
+                <button @click="count++">点击了{{count}}次</button>  
+            </div>
+           `
+        })
+        var HelloWorld = {
+            data:function(){
+                return{
+                    msg: 'HelloWorld'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        };
+        var vm = new Vue({
+            el:'#app',
+            data: {
+
+            },
+            //局部组件，只能在父组件中使用
+            components:{
+                'hello-world': HelloWorld
+            }
+        })
+    </script>
+</body>
+</html>

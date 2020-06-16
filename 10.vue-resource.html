@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <!--后导入resource包-->
+    <script src="./lib/vue-resource-1.3.4.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="get请求" @click="getInfo">
+        <input type="button" value="jsonp请求" @click="jsonpInfo">
+    </div>
+    
+
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{
+                getInfo(){ //调用promise.then 成功回调
+                    this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(result){
+                        console.log(result.body) //拿到服务器返回成功的数据
+                    })
+                },
+
+                jsonpInfo(){
+                    this.$http.jsonp('http://www.liulongbin.top:3005/api/jsonp').then( result =>{
+                        console.log(result.body)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
