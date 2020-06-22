@@ -9,7 +9,7 @@
 <body>
    <div id="app">
        <div>{{pmsg}}</div>
-       <menu-item :pstr='pstr'></menu-item>
+       <menu-item :pstr='pstr' :pnum='12' :pboo='true' :parr='parr' :pobj='pobj'></menu-item>
 
    </div> 
 
@@ -17,10 +17,19 @@
    <script>
        //父组件向子组件传值-props属性名类型
        Vue.component('menu-item',{
-           props: ['pstr'],
+           props: ['pstr','pnum','pboo','parr','pobj'],
            template: `
             <div>
-                <div>{{pstr}}</div>
+                <div>{{pstr}}</div>  
+                <div>{{12 + pnum}}</div>
+                <div>{{pboo}}</div>
+                <ul>
+                    <li v-for='(item,index) in parr' :key='index'>{{item}}</li>
+                </ul>
+                <div>
+                    <span>{{pobj.name}}</span>
+                    <span>{{pobj.age}}</span>
+                </div>
             </div>    
            `
        })
@@ -28,7 +37,12 @@
            el: '#app',
            data: {
                pmsg: '父组件中的内容',
-               pstr: 'hello'
+               pstr: 'hello',
+               parr: ['apple','orange','banana'],
+               pobj: {
+                   name: 'lisa',
+                   age: 12
+               }
            }
        })
    </script>

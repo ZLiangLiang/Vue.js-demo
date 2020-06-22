@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router_3.0.2.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--父路由组件模板-->
+
+        <router-link to='/user'>User</router-link> 
+        <router-link to='/register'>Register</router-link>
+
+
+        <!--控制组件的显示位置-->
+        <router-view>
+
+        </router-view>
+
+
+    </div>
+    <script>
+        /*
+            创建路由组件
+        */
+        var User = {
+            template: '<h1>User 组件</h1>'
+        }
+
+        var Register = {
+            template: `
+                <div>
+                    <h1>Register 组件</h1> 
+                    </hr>
+
+                    <!--子路由链接-->
+                    <router-link to='/register/tab1'>tab1</router-link>
+                    <router-link to='/register/tab2'>tab2</router-link>
+
+                    <!--子路由的占位符-->
+                    <router-view />
+                </div>
+            `
+        }
+
+        /*
+            创建子路由组件
+        */
+        var Tab1 = {
+            template: '<h3>tab1子组件</h3>'
+        }
+
+        var Tab2 = {
+            template: '<h3>tab2子组件</h3>'
+        }
+
+        /*
+            创建路由示例对象
+        */
+        var router = new VueRouter({
+            //所有的路由规则
+            routes: [
+                { path: '/' , redirect: '/user' }, //路由重定向
+                { path: '/user' , component: User},
+                //children 数组表示子路由规则
+                { path: '/register' , component: Register , children: [
+                    {path: '/register/tab1' , component: Tab1},
+                    {path: '/register/tab2' , component: Tab2}
+                ]},
+            ]
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            //挂载路由示例对象
+            router: router
+        })
+    </script>
+</body>
+</html>

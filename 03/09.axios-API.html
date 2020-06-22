@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <script>
+        /*
+            axios的参数传递
+        */
+        
+        //GET传递参数
+        axios.get('http://localhost:3000/axios?id=123').then(function(ret){
+            console.log(ret.data);
+        })
+
+        axios.get('http://localhost:3000/axios/123').then(function(ret){
+            console.log(ret.data);
+        })      //通过URL传参
+
+        //通过params选项传递参数
+        axios.get('http://localhost:3000/axios',{
+            params: {
+                id: 789
+            }
+        }).then(function(ret){
+            console.log(ret.data);
+        })
+
+        //POST传递参数 默认json格式
+        axios.post('http://localhost:3000/axios',{
+            uname: 'lisa',
+            pwd: '123'
+        }).then(function(ret){
+            console.log(ret.data);
+        })  
+
+        //POST 通过URLSearchParams传递参数
+        var params = new URLSearchParams();
+        params.append('uname','Lisa');
+        params.append('pwd','111');
+        axios.post('http://localhost:3000/axios',params).then(function(ret){
+            console.log(ret.data);
+        })
+
+        //PUT请求
+        axios.put('http://localhost:3000/axios/123',{
+            uname: 'lisa',
+            pwd: '123'
+        }).then(function(ret){
+            console.log(ret.data);
+        })
+        
+    </script>
+</body>
+</html>

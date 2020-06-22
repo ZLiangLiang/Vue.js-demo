@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+       /*
+        基于promise发送ajax请求
+       */
+
+       function queryData(url){
+           return new Promise(function(resolve,reject){
+               var xhr = new XMLHttpRequest();
+               xhr.onreadystatechange = function(){
+                   if(xhr.readyState != 4) return;
+                   if(xhr.readyState == 4 && xhr.status == 200){
+                       //处理正常情况
+                       resolve(xhr.responseText);
+                   }else{
+                       //异常情况
+                       reject('服务器错误');
+                   }
+
+               };
+               xhr.open('get',url);
+               xhr.send(null);
+           });
+       }
+
+    //单个ajax请求
+    //    queryData('http://localhost:3000/data').then(function(data){   //index.js中的接口
+    //        console.log(data)
+    //        },function(info){
+    //            console.log(info)
+    //        });       
+
+
+        //发送多个ajax请求并且保证顺序
+        queryData('http://localhost:3000/data')
+            .then(function(data){     
+                console.log(data);
+                return queryData('http://localhost:3000/data1');
+            })
+            .then(function(data){
+                console.log(data);
+                return queryData('http://localhost:3000/data2');
+            })
+            .then(function(data){  
+                console.log(data);
+                return new Promise(function(resolve,reject){  //then返回一个实例对象，调用下一个then
+                    setTimeout(function(){
+                        resolve(123);
+                    },1000)
+                });
+            })
+            .then(function(data){
+               // console.log(data); //得到上一个异步任务结果
+               return 'hello';   //返回一个普通值，传递给下一个then
+            })
+            .then(function(data){
+                console.log(data); //接收值,默认产生一个新的promise对象
+            })
+        
+
+
+   </script> 
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <script>
+        /*
+            asynv/await的基本用法
+            async关键字用在函数上，返回值是promise实例对象
+            await用于async函数中，可以得到异步的结果 
+            不再需要回调函数
+        */
+
+        axios.defaults.baseURL = 'http:localhost:3000' 
+        // axios.get('adata').then(function(ret){
+        //     console.log(ret.data);
+
+        // })
+
+        async function queryData(){
+           var ret = await axios.get('adata');
+           //console.log(ret.data);
+           return ret
+        }
+        queryData().then(function(ret){
+            console.log(ret)
+        })
+    </script>
+</body>
+</html>

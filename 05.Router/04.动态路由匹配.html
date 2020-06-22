@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router_3.0.2.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--创建路由链接 router-link默认渲染为a标签，to属性渲染为herf-->
+        <router-link to='/user/1'>User</router-link> 
+        <router-link to='/user/2'>User</router-link>
+        <router-link to='/user/3'>User</router-link>
+        <router-link to='/register'>Register</router-link>
+
+        <!--路由填充位（占位符）-->
+        <!--将来通过路由规则匹配到的组件，将会被渲染到router-view所在的位置-->
+        <router-view>
+
+        </router-view>
+    </div>
+    <script>
+        /*
+            创建路由组件
+        */
+        var User = {
+            //路由组件中通过$route.params获取路由参数
+            template: '<h1>User 组件---用户id为:{{$route.params.uid}}</h1>'
+        }
+
+        var Register = {
+            template: '<h1>Register 组件</h1>'
+        }
+
+        /*
+            创建路由示例对象
+        */
+        var router = new VueRouter({
+            //所有的路由规则
+            routes: [
+                { path: '/' , redirect: '/user' }, //路由重定向
+                { path: '/user/:uid' , component: User},
+                { path: '/register' , component: Register},
+            ]
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            //挂载路由示例对象
+            router: router
+        })
+    </script>
+</body>
+</html>
